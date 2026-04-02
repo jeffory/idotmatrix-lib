@@ -10,7 +10,7 @@ import (
 // Otherwise, uses ChunkDelay between chunks.
 func (c *Connection) WriteChunked(chunks [][]byte) error {
 	for i, chunk := range chunks {
-		_, err := c.writeChar.WriteWithoutResponse(chunk)
+		err := c.WritePacket(chunk)
 		if err != nil {
 			return fmt.Errorf("write chunk %d: %w", i, err)
 		}
