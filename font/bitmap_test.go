@@ -28,6 +28,18 @@ func TestDefaultBitmapRenderString(t *testing.T) {
 		bitmaps[0][2] != 0xFF || bitmaps[0][3] != 0xFF {
 		t.Errorf("separator = %x, want 05ffffff", bitmaps[0][:4])
 	}
+
+	// "A" should have non-zero pixel data
+	hasPixels := false
+	for _, b := range bitmaps[0][4:] {
+		if b != 0 {
+			hasPixels = true
+			break
+		}
+	}
+	if !hasPixels {
+		t.Error("bitmap for 'A' is all zeros, expected visible pixels")
+	}
 }
 
 func TestDefaultBitmapMultipleChars(t *testing.T) {
@@ -45,6 +57,17 @@ func TestDefaultBitmapMultipleChars(t *testing.T) {
 	for i, bm := range bitmaps {
 		if len(bm) != 68 {
 			t.Errorf("bitmap[%d] length = %d, want 68", i, len(bm))
+		}
+		// Each character should have non-zero pixel data
+		hasPixels := false
+		for _, b := range bm[4:] {
+			if b != 0 {
+				hasPixels = true
+				break
+			}
+		}
+		if !hasPixels {
+			t.Errorf("bitmap[%d] is all zeros, expected visible pixels", i)
 		}
 	}
 }
