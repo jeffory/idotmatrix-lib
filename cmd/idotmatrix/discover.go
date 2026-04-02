@@ -6,7 +6,10 @@ import (
 
 	"github.com/jeffory/idotmatrix-lib/transport"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
+
+var saveDevice bool
 
 var discoverCmd = &cobra.Command{
 	Use:   "discover",
@@ -24,8 +27,21 @@ var discoverCmd = &cobra.Command{
 		for _, d := range devices {
 			fmt.Printf("  %s  %s  RSSI: %d\n", d.Name, d.Address, d.RSSI)
 		}
+
+		if saveDevice {
+			addr := devices[0].Address
+			viper.Set("device.address", addr)
+			if err := saveConfig(); err != nil {
+				return fmt.Errorf("save config: %w", err)
+			}
+			fmt.Printf("Saved %s as default device address.\n", addr)
+		}
+
 		return nil
 	},
 }
 
-func init() { rootCmd.AddCommand(discoverCmd) }
+func init() {
+	discoverCmd.Flags().BoolVar(&saveDevice, "save", false, "save first discovered device as default address")
+	rootCmd.AddCommand(discoverCmd)
+}
