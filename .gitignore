@@ -1,2 +1,7 @@
-idotmatrix
+/idotmatrix
 .idea/
+.claude/
+references/
+*.jpg
+*.gif
+*.png
