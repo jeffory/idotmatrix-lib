@@ -5,12 +5,6 @@ import (
 	"time"
 )
 
-// Known notification ACK responses
-var (
-	ackChunkReceived = []byte{0x05, 0x00, 0x01, 0x00, 0x01}
-	ackUploadDone    = []byte{0x05, 0x00, 0x01, 0x00, 0x03}
-)
-
 // WriteChunked sends multiple chunks with flow control.
 // If UseFlowControl is true, waits for notification ACK between chunks.
 // Otherwise, uses ChunkDelay between chunks.

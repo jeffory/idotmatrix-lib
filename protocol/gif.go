@@ -23,10 +23,7 @@ func EncodeGIF(data []byte, size DisplaySize) ([][]byte, error) {
 	// Split GIF data into chunks
 	var gifChunks [][]byte
 	for i := 0; i < len(data); i += gifChunkSize {
-		end := i + gifChunkSize
-		if end > len(data) {
-			end = len(data)
-		}
+		end := min(i+gifChunkSize, len(data))
 		gifChunks = append(gifChunks, data[i:end])
 	}
 

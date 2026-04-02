@@ -29,7 +29,7 @@ func main() {
 	// Draw a rainbow spiral
 	cx, cy := 16, 16
 	colorIdx := 0
-	for t := 0; t < 500; t++ {
+	for t := range 500 {
 		angle := 0.1 * float64(t)
 		radius := 0.5 * angle
 		x := int(float64(cx) + radius*math.Cos(angle))

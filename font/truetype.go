@@ -51,7 +51,7 @@ func (r *ttfRenderer) RenderString(s string, size protocol.DisplaySize) ([][]byt
 	return result, nil
 }
 
-func (r *ttfRenderer) renderChar(ch rune, size protocol.DisplaySize) []byte {
+func (r *ttfRenderer) renderChar(ch rune, _ protocol.DisplaySize) []byte {
 	const (
 		charWidth  = 16
 		charHeight = 32
@@ -83,8 +83,8 @@ func (r *ttfRenderer) renderChar(ch rune, size protocol.DisplaySize) []byte {
 	// Convert to row-major little-endian bitmap
 	bitmapBytes := make([]byte, 64)
 	bitPos := 0
-	for y := 0; y < charHeight; y++ {
-		for x := 0; x < charWidth; x++ {
+	for y := range charHeight {
+		for x := range charWidth {
 			if img.GrayAt(x, y).Y > 128 {
 				byteIdx := bitPos / 8
 				bitIdx := bitPos % 8
