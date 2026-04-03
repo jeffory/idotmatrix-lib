@@ -1,3 +1,5 @@
+//go:build linux
+
 package transport
 
 import (
@@ -7,13 +9,6 @@ import (
 
 	"github.com/godbus/dbus/v5"
 )
-
-// DiscoveredDevice represents an iDotMatrix device found during scanning.
-type DiscoveredDevice struct {
-	Name    string
-	Address string
-	RSSI    int
-}
 
 // Discover scans for iDotMatrix devices for the given duration.
 // It talks to BlueZ directly via DBus, which works even when another process

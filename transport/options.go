@@ -10,6 +10,13 @@ const (
 	DefaultChunkSize = 4096
 )
 
+// DiscoveredDevice represents an iDotMatrix device found during scanning.
+type DiscoveredDevice struct {
+	Name    string
+	Address string
+	RSSI    int
+}
+
 // ConnectOptions configures connection behavior.
 type ConnectOptions struct {
 	Timeout        time.Duration // connection timeout (default 10s)
